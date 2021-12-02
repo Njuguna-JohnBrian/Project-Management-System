@@ -9,4 +9,4 @@ BEGIN
 
 END;
 
-EXECUTE showUser 4;
+EXECUTE showOneUser 4;
