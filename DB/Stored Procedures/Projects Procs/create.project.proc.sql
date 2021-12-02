@@ -15,3 +15,4 @@ BEGIN
 END;
 
 EXECUTE createProject "React", "A Javascript Framework";
+SELECT * FROM Projects;
