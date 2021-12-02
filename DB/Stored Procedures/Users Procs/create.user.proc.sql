@@ -23,4 +23,6 @@ BEGIN
     );
 END;
 
-EXECUTE createUser "njugunajb96@gmail.com", "John Brian", "12345","0707683279", "Admin";
+EXECUTE createUser "njugunajohnbrian@gmail.com", "Njuguna", "12345","07123456", "User";
+
+SELECT * FROM Users
