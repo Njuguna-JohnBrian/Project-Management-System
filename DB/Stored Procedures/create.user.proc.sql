@@ -24,4 +24,3 @@ BEGIN
 END;
 
 EXECUTE createUser "njugunajb96@gmail.com", "John Brian", "12345","0707683279", "Admin";
-SELECT * FROM Users;
