@@ -2,6 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const sql = require("mssql");
+const sqlConfig = require("./config/database");
 
 // Create App
 const app = express();
@@ -11,10 +13,12 @@ let corsOPtions = {
   origin: "http://localhost:8000",
 };
 
-//Mount Installed middlewares
+//MOUNT INSTALLED MIDDLEWARES
 app.use(cors(corsOPtions));
+
 //parse json content-type requests
 app.use(bodyParser.json());
+
 //parse url-encoded contet-type requests
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -24,3 +28,20 @@ const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server Running on port: ${PORT}`);
 });
+
+//test database connection
+async function connectDB() {
+  const pool = new sql.ConnectionPool(sqlConfig);
+
+  try {
+    await pool.connect();
+    console.log("Database Connection Successfull!");
+
+    return pool;
+  } catch (err) {
+    console.log("Database Connection Failed", err);
+
+    return err;
+  }
+}
+connectDB();
