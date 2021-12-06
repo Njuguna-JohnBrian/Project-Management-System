@@ -12,13 +12,15 @@ let corsOPtions = {
 };
 
 //Mount Installed middlewares
-app.use(cors);
+app.use(cors(corsOPtions));
+//parse json content-type requests
 app.use(bodyParser.json());
+//parse url-encoded contet-type requests
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Set port app will listen to for requests
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, ()=>{
-    console.log(`Server Running on port: ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server Running on port: ${PORT}`);
+});
