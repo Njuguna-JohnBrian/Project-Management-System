@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const sql = require("mssql");
 const sqlConfig = require("./config/database");
+const userRoutes = require("./routes/user.routes");
 
 // Create App
 const app = express();
@@ -45,3 +46,5 @@ async function connectDB() {
   }
 }
 connectDB();
+
+app.use("/users", userRoutes);
