@@ -41,6 +41,38 @@ exports.getOneUser = async (req, res) => {
 };
 
 //Update User
+exports.updateUser = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let pool = await sql.connect(sqlConfig);
+    let user = (
+      await pool.request().input("id", sql.Int, id).execute("showOneUser")
+    ).recordset[0];
+
+    if (user === undefined) {
+      res.send(`User with ${id} not found`);
+    }
+    if (user) {
+      let updated_username = req.body.username || user.username;
+      let updated_email = req.body.email || user.email;
+
+      pool
+        .request()
+        .input("id", sql.Int, id)
+        .input("email", sql.VarChar, updated_email)
+        .input("username", sql.VarChar, updated_username)
+        .execute("updateUser", (error, results) => {
+          if (error) {
+            console.log(error);
+            res.status(500).send({ message: "Error" });
+          }
+          res.status(201).send({ message: "User details updated" });
+        });
+    }
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 //Delete User
 exports.deleteUser = async (req, res) => {
   try {
