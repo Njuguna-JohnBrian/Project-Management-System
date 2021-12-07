@@ -12,3 +12,5 @@ router.route("/").get(getAllUser);
 router.route("/:id").get(getOneUser);
 router.route("/update/:id").put(updateUser);
 router.route("/delete/:id").delete(deleteUser);
+
+module.exports = router;
