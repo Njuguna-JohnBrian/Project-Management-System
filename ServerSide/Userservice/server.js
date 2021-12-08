@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const sql = require("mssql");
 const sqlConfig = require("./config/database");
 const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
 
 // Create App
 const app = express();
@@ -22,13 +23,6 @@ app.use(bodyParser.json());
 
 //parse url-encoded contet-type requests
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//Set port app will listen to for requests
-const PORT = process.env.PORT || 8000;
-
-app.listen(PORT, () => {
-  console.log(`Server Running on port: ${PORT}`);
-});
 
 //test database connection
 async function connectDB() {
@@ -48,3 +42,11 @@ async function connectDB() {
 connectDB();
 
 app.use("/users", userRoutes);
+app.use("/", authRoutes);
+
+//Set port app will listen to for requests
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server Running on port: ${PORT}`);
+});

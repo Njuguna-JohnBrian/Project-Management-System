@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const lodash = require("lodash");
 const sqlConfig = require("../config/database");
+const generateToken = require("../helpers/genToken.helpers");
 
 exports.createUser = async (req, res) => {
   try {
@@ -66,18 +67,11 @@ exports.createUser = async (req, res) => {
           if (error) {
             res.status(500).send(error.message);
           } else {
-            jwt.sign(
-              { email, username },
-              process.env.SECRET_KEY,
-              { expiresIn: "3600s" },
-              (err, token) => {
-                return res.status(201).json({
-                  user: { email, username },
-                  message: `${username} added successfully`,
-                  token,
-                });
-              }
-            );
+            return res.status(201).json({
+              user: { email, username },
+              message: `${username} added successfully`,
+              token: generateToken(email, username),
+            });
           }
         });
     }
@@ -96,5 +90,64 @@ exports.login = async (req, res) => {
       .request()
       .input("email", sql.VarChar, email)
       .execute("checkEmail");
-  } catch (error) {}
+
+    const user = results.recordset[0];
+    if (!user || user === undefined) {
+      return res.status(401).send({ message: "User not found" });
+    } else {
+      bcrypt.compare(password, user.password, (err, results) => {
+        if (err) {
+          res.status(500).send("Error");
+        }
+        if (!results) {
+          return res.status(401).json({ message: "Wrong Password" });
+        }
+        return res.status(200).json({
+          user: lodash.pick(user, ["username", "email"]),
+          message: `${user.username} logged in successfully`,
+          token: generateToken(user.email, user.username),
+        });
+      });
+    }
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+  try {
+    let email = req.body.email;
+    let updated_password = req.body.password;
+    let confirm_password = req.body.confirm_password;
+
+    if (!email) {
+      res.status(401).send({ message: "Please provide an email" });
+    } else if (!updated_password) {
+      res.status(401).send({ message: "Please enter new password" });
+    } else if (!confirm_password) {
+      res.status(401).send({ message: "Please confirm new passowrd" });
+    } else if (updated_password !== confirm_password) {
+      res.status(401).send({ message: "Passwords do not match" });
+    } else {
+      let pool = await sql.connect(sqlConfig);
+      let results = await pool
+        .request()
+        .input("email", sql.VarChar, email)
+        .execute("checkEmail");
+      const user = results.recordset[0];
+
+      if (user) {
+        const hashedPassword = await bcrypt.hash(updated_password, 10);
+        pool
+          .request()
+          .query(
+            `UPDATE Users SET password='${hashedPassword}' WHERE email='${email}'`
+          );
+        res.status(200).send({ message: "Password updated successfully" });
+      }
+    }
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
 };
