@@ -2,7 +2,7 @@ const sql = require("mssql");
 require("dotenv").config();
 const sqlConfig = require("../config/database");
 
-// Get all users
+// Get all users /users/admin/
 exports.getAllUsers = async (req, res) => {
   try {
     let pool = await sql.connect(sqlConfig);
@@ -16,7 +16,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-//Get a single user
+//Get a single user =>/admin/:id
 exports.getOneUser = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
@@ -27,20 +27,20 @@ exports.getOneUser = async (req, res) => {
       .input("id", sql.Int, id)
       .execute("showOneUser", (err, results) => {
         if (err) {
-          res.status(500).send({ message: "Error!" });
+          return res.status(500).send({ message: "Error!" });
         }
         if (results.recordset.length === 0)
-          res.status(406).send("No user with that id found");
+          return res.status(406).send("No user with that id found");
         else {
-          res.status(201).send(results.recordset[0]);
+          return res.status(201).send(results.recordset[0]);
         }
       });
   } catch (error) {
-    res.status(401).send(error.message);
+    return res.status(401).send(error.message);
   }
 };
 
-//Update User
+//Update User =>/admin/update/:id
 exports.updateUser = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
@@ -50,7 +50,7 @@ exports.updateUser = async (req, res) => {
     ).recordset[0];
 
     if (user === undefined) {
-      res.send(`User with ${id} not found`);
+      return res.send(`User with ${id} not found`);
     }
     if (user) {
       let updated_username = req.body.username || user.username;
@@ -63,17 +63,16 @@ exports.updateUser = async (req, res) => {
         .input("username", sql.VarChar, updated_username)
         .execute("updateUser", (error, results) => {
           if (error) {
-            console.log(error);
-            res.status(500).send({ message: "Error" });
+            return res.status(500).send({ message: "Error" });
           }
-          res.status(201).send({ message: "User details updated" });
+          return res.status(201).send({ message: "User details updated" });
         });
     }
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
-//Delete User
+//Delete User =>/admin/delete/:id
 exports.deleteUser = async (req, res) => {
   try {
     let id = parseInt(req.params.id);

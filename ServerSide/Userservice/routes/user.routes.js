@@ -9,9 +9,9 @@ const {
   deleteUser,
 } = require("../controllers/users.controllers");
 
-router.route("/").get(protect, admin, getAllUsers);
-router.route("/:id").get(getOneUser);
-router.route("/update/:id").put(updateUser);
-router.route("/delete/:id").delete(protect, deleteUser);
+router.route("/admin/").get(getAllUsers);
+router.route("/admin/:id").get(getOneUser);
+router.route("/admin/update/:id").put(updateUser);
+router.route("/admin/delete/:id").delete(deleteUser);
 
 module.exports = router;
