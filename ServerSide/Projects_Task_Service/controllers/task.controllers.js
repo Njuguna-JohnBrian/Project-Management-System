@@ -58,3 +58,27 @@ exports.createTask = async (req, res) => {
     res.status(402).send(error.message);
   }
 };
+
+// Get specific task in a project /
+exports.getOneTask = (req, res) => {
+  try {
+    let task_id = req.body.task_id;
+    let pool = await sql.connect(sqlConfig);
+
+    pool
+      .request()
+      .input("task_id", sql.Int, task_id)
+      .execute("getOneTask", (err, results) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+        if (results.recordset.length == 0)
+          res.status(406).send("No Task With That Id Found");
+        else {
+          res.status(2001).send(results.recordset[0]);
+        }
+      });
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
+};
