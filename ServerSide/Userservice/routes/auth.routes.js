@@ -7,7 +7,7 @@ const {
   resetPassword,
 } = require("../controllers/auth.controllers");
 
-router.route("./signup").post(createUser);
+router.route("/signup").post(createUser);
 router.route("/login").post(login);
 router.route("/reset-password").post(resetPassword);
 

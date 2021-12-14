@@ -43,7 +43,7 @@ exports.protect = async (req, res, next) => {
 };
 
 exports.admin = (req, res, next) => {
-  if (res.locals.user && res.locals.iser.is_admin) {
+  if (res.locals.user && res.locals.user.is_admin) {
     next();
   } else {
     res.status(401).send({ message: "Admin access required for this action" });

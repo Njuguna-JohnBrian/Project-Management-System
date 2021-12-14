@@ -4,15 +4,13 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const sql = require("mssql");
 const sqlConfig = require("./config/database");
-const userRoutes = require("./routes/user.routes");
-const authRoutes = require("./routes/auth.routes");
 
 // Create App
 const app = express();
 
 //configure cors with options
 let corsOPtions = {
-  origin: "http://localhost:8000",
+  origin: "http://localhost:9000",
 };
 
 //MOUNT INSTALLED MIDDLEWARES
@@ -41,12 +39,9 @@ async function connectDB() {
 }
 connectDB();
 
-app.use("/users", userRoutes);
-app.use("/", authRoutes);
-
 //Set port app will listen to for requests
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => {
-  console.log(`User Service Running on port: ${PORT}`);
+  console.log(`Project Service Running on port: ${PORT}`);
 });
