@@ -39,6 +39,11 @@ async function connectDB() {
 }
 connectDB();
 
+// Import All Routes
+const projects = require("./routes/project.routes");
+
+app.use("/projects/", projects);
+
 //Set port app will listen to for requests
 const PORT = process.env.PORT || 9000;
 
