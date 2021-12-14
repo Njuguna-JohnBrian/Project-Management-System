@@ -41,8 +41,10 @@ connectDB();
 
 // Import All Routes
 const projects = require("./routes/project.routes");
+const tasks = require("./routes/task.routes");
 
 app.use("/projects/", projects);
+app.use("/tasks/", tasks);
 
 //Set port app will listen to for requests
 const PORT = process.env.PORT || 9000;

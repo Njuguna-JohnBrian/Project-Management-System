@@ -15,6 +15,4 @@ router.route("/admin/project/:id").get(getOneProject);
 router.route("/admin/project/new").post(createProject);
 router.route("/admin/project/assign").put(assignProject);
 
-// Task Routes
-
 module.exports = router;
