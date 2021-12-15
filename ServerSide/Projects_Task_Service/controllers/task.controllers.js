@@ -96,7 +96,7 @@ exports.updateTask = async (req, res) => {
       .input("id", sql.Int, id)
       .execute("getSingleTask", (err, results) => {
         if (err) {
-          res.status(500).send({ message: "an error occured on our side" });
+          res.status(500).send({ message: "Internal Server Error" });
         }
 
         let task = results.recordset[0];
@@ -111,7 +111,7 @@ exports.updateTask = async (req, res) => {
           .input("task_name", sql.VarChar, updated_task_name)
           .execute("updateTask", (err, results) => {
             if (err) {
-              res.status(500).send({ message: "an error occured on our side" });
+              res.status(500).send({ message: "Internal Server Error" });
             }
             res.status(201).send({ message: "Task updated successfully" });
           });
