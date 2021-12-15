@@ -124,3 +124,65 @@ exports.getProjectsTasks = async (req, res) => {
     return res.status(401).send(error.message);
   }
 };
+
+//Update Project /admin/update/:id
+exports.updateProject = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let pool = await sql.connect(sqlConfig);
+
+    // Check If Project Exists
+    let project = (
+      await pool.request().input("id", sql.Int, id).execute("getOneProject")
+    ).recordset[0];
+
+    if (project) {
+      let updated_project_name = req.body.project_name || project.project_name;
+      let updated_project_desc = req.body.project_desc || project.project_desc;
+
+      pool
+        .request()
+        .input("id", sql.Int, id)
+        .input("project_name", sql.VarChar, updated_project_name)
+        .input("project_desc", sql.VarChar, updated_project_desc)
+        .execute("upadateProject", (err, results) => {
+          if (err) {
+            return res.status(500).send({
+              message: "Internal Server Error",
+            });
+          }
+          return res.status(201).send({
+            message: "Project Details Updated",
+          });
+        });
+    } else {
+      return res.status(500).send({
+        message: "Project Not Found",
+      });
+    }
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+// Delete A Project /admin/delete/:id
+exports.deleteProject = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+
+    let pool = await sql.connect(sqlConfig);
+
+    pool
+      .request()
+      .input("id", sql.Int, id)
+      .execute("deleteProject", (err, results) => {
+        if (err) {
+          return res.status(500).send({
+            message: "Oops!, Project Not Deleted",
+          });
+        }
+        return res.status(201).send({ message: "Project Deleted Succesfully" });
+      });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};

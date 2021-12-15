@@ -83,4 +83,77 @@ exports.getOneTask = async (req, res) => {
   }
 };
 
+// Update Task /admin/update/:id
+const sqlConfig = require("../../ServerSide/Projects_Task_Service/config/database");
 
+exports.updateTask = async (req, res) => {
+  try {
+    let pool = await sql.connect(sqlConfig);
+    let id = parseInt(req.params.id);
+
+    pool
+      .request()
+      .input("id", sql.Int, id)
+      .execute("getSingleTask", (err, results) => {
+        if (err) {
+          res.status(500).send({ message: "an error occured on our side" });
+        }
+
+        let task = results.recordset[0];
+
+        let updated_task_name = req.body.task_name || task.task_name;
+        let updated_task_desc = req.body.task_desc || task.task_desc;
+
+        pool
+          .request()
+          .input("id", sql.Int, id)
+          .input("task_desc", sql.VarChar, updated_task_desc)
+          .input("task_name", sql.VarChar, updated_task_name)
+          .execute("updateTask", (err, results) => {
+            if (err) {
+              res.status(500).send({ message: "an error occured on our side" });
+            }
+            res.status(201).send({ message: "Task updated successfully" });
+          });
+      });
+  } catch (error) {
+    res.status(500).send(err.message);
+  }
+};
+
+// Delete Task /admin/delete/:id
+exports.deleteTask = async (req, res) => {
+  try {
+    let pool = await sql.connect(sqlConfig);
+    let id = parseInt(req.params.id);
+
+    pool
+      .request()
+      .input("id", sql.Int, id)
+      .execute("getOneTask", (err, results) => {
+        if (err) {
+          res.status(500).send({ message: "Internal Server Error" });
+        }
+        let task = results.recordset[0];
+        if (task) {
+          pool
+            .request()
+            .input("id", sql.Int, id)
+            .execute("deleteTask", (err, results) => {
+              if (err) {
+                return res
+                  .status(500)
+                  .send({ message: "Internal Server Error" });
+              }
+              return res
+                .status(201)
+                .send({ message: "Task deleted successfully" });
+            });
+        } else {
+          return res.send({ message: "Task Not Found" });
+        }
+      });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
