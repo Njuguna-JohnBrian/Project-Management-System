@@ -110,3 +110,17 @@ exports.assignProject = async (req, res) => {
     return res.status(401).send(error.message);
   }
 };
+
+// Get All Projects and Tasks =>/admin/projtasks
+exports.getProjectsTasks = async (req, res) => {
+  try {
+    let pool = await sql.connect(sqlConfig);
+    let results = await pool.request().execute("getProjectsTasks");
+    if (results.recordset.length == 0) {
+      return res.status(406).send("No Entries Found");
+    }
+    return res.status(201).send(results.recordset);
+  } catch (error) {
+    return res.status(401).send(error.message);
+  }
+};

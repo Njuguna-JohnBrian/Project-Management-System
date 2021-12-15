@@ -28,7 +28,7 @@ exports.getAllTasks = async (req, res) => {
   }
 };
 
-// Create Tasks In A Project
+// Create Tasks In A Project /admin/tasks/new/:id
 exports.createTask = async (req, res) => {
   try {
     let task_name = req.body.task_name;
@@ -59,15 +59,15 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// Get specific task in a project /
-exports.getOneTask = (req, res) => {
+// Get specific task in a project /admin/task/:id
+exports.getOneTask = async (req, res) => {
   try {
-    let task_id = req.body.task_id;
+    let id = parseInt(req.params.id);
     let pool = await sql.connect(sqlConfig);
 
     pool
       .request()
-      .input("task_id", sql.Int, task_id)
+      .input("task_id", sql.Int, id)
       .execute("getOneTask", (err, results) => {
         if (err) {
           res.status(500).send(err);
@@ -75,10 +75,12 @@ exports.getOneTask = (req, res) => {
         if (results.recordset.length == 0)
           res.status(406).send("No Task With That Id Found");
         else {
-          res.status(2001).send(results.recordset[0]);
+          res.status(201).send(results.recordset[0]);
         }
       });
   } catch (error) {
     res.status(401).send(error.message);
   }
 };
+
+
