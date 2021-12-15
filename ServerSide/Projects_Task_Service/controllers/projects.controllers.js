@@ -2,7 +2,7 @@ const sql = require("mssql");
 require("dotenv").config();
 const sqlConfig = require("../config/database");
 
-// Get All Projects =>/projects/admin/projects
+// Get All Projects =>/projects
 exports.getAllProjects = async (req, res) => {
   try {
     let pool = await sql.connect(sqlConfig);
@@ -16,7 +16,7 @@ exports.getAllProjects = async (req, res) => {
   }
 };
 
-// Get One Project =>/project/admin/project:id
+// Get One Project =>/project/project:id
 exports.getOneProject = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
@@ -125,7 +125,7 @@ exports.getProjectsTasks = async (req, res) => {
   }
 };
 
-//Update Project /admin/update/:id
+//Update Project /update/:id
 exports.updateProject = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
@@ -164,7 +164,7 @@ exports.updateProject = async (req, res) => {
     return res.status(500).send(error.message);
   }
 };
-// Delete A Project /admin/delete/:id
+// Delete A Project /delete/:id
 exports.deleteProject = async (req, res) => {
   try {
     let id = parseInt(req.params.id);

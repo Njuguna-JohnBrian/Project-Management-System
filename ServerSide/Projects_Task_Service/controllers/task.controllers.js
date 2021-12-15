@@ -2,7 +2,7 @@ const sql = require("mssql");
 require("dotenv").config();
 const sqlConfig = require("../config/database");
 
-// Get All Tasks In A Project /admin/tasks/:id
+// Get All Tasks In A Project /tasks/:id
 exports.getAllTasks = async (req, res) => {
   try {
     let project_id = parseInt(req.params.id);
@@ -28,7 +28,7 @@ exports.getAllTasks = async (req, res) => {
   }
 };
 
-// Create Tasks In A Project /admin/tasks/new/:id
+// Create Tasks In A Project /tasks/new/:id
 exports.createTask = async (req, res) => {
   try {
     let task_name = req.body.task_name;
@@ -59,7 +59,7 @@ exports.createTask = async (req, res) => {
   }
 };
 
-// Get specific task in a project /admin/task/:id
+// Get specific task in a project /task/:id
 exports.getOneTask = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
@@ -83,7 +83,7 @@ exports.getOneTask = async (req, res) => {
   }
 };
 
-// Update Task /admin/update/:id
+// Update Task /update/:id
 const sqlConfig = require("../../ServerSide/Projects_Task_Service/config/database");
 
 exports.updateTask = async (req, res) => {
@@ -121,7 +121,7 @@ exports.updateTask = async (req, res) => {
   }
 };
 
-// Delete Task /admin/delete/:id
+// Delete Task /delete/:id
 exports.deleteTask = async (req, res) => {
   try {
     let pool = await sql.connect(sqlConfig);
