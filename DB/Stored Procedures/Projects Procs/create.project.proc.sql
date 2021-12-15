@@ -14,5 +14,5 @@ BEGIN
     );
 END;
 
-EXECUTE createProject "React", "A Javascript Framework";
+EXECUTE createProject "Advanced React", "Understand React Class Components";
 SELECT * FROM Projects;

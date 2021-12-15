@@ -12,4 +12,5 @@ BEGIN
 END;
 
 
-EXECUTE assignProject 1, 4;
+EXECUTE assignProject 23, 3;
+
