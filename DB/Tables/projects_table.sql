@@ -10,3 +10,5 @@ CREATE TABLE Projects(
     ON UPDATE CASCADE
     ON DELETE SET NULL 
 )
+
+SELECT * FROM Projects
