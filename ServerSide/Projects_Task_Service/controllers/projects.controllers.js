@@ -12,7 +12,7 @@ exports.getAllProjects = async (req, res) => {
     }
     return res.status(201).send(results.recordset);
   } catch (error) {
-    console.log(error);
+    res.status(401).send(error.message);
   }
 };
 
@@ -102,7 +102,7 @@ exports.assignProject = async (req, res) => {
         if (results.rowsAffected[0] == 0) {
           return res.status(400).send({ message: "No Entry Made" });
         }
-        return es
+        return res
           .status(201)
           .send({ message: "Project Assigned Successfully" });
       });
@@ -145,7 +145,7 @@ exports.updateProject = async (req, res) => {
         .input("id", sql.Int, id)
         .input("project_name", sql.VarChar, updated_project_name)
         .input("project_desc", sql.VarChar, updated_project_desc)
-        .execute("upadateProject", (err, results) => {
+        .execute("updateProject", (err, results) => {
           if (err) {
             return res.status(500).send({
               message: "Internal Server Error",
