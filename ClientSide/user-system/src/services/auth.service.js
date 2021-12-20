@@ -3,12 +3,24 @@ import axios from "axios";
 //User Authentication service
 class AuthService {
   // login user and store details in localstorage
-  login(username, password) {
+  // this.config = {
+  //   headers: {
+  //     "Content-type": "application/json",
+  //   },
+  // };
+
+  login(email, password) {
     return axios
-      .post("/user/login", {
-        username,
-        password,
-      })
+      .post(
+        "/user/login",
+        {
+          email,
+          password,
+        },
+        {
+          "Content-type": "application/json",
+        }
+      )
       .then((response) => {
         if (response.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(response.data));

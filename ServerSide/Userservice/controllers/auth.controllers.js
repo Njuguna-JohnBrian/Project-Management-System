@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
     const checkNumberOfChars = new RegExp("^(?=.{8,})");
     const checkSpecialChars = new RegExp("^(?=.*[!@#$%^&*])");
 
-    const { email, username, password } = req.body;
+    const { email, username, password, phonenumber } = req.body;
     let pool = await sql.connect(sqlConfig);
     let results = await pool
       .request()
@@ -31,6 +31,10 @@ exports.createUser = async (req, res) => {
     //check password
     else if (!password) {
       res.status(401).send({ message: "Please enter your password" });
+    }
+    // Check Phone Number
+    else if (!phonenumber) {
+      res.status(401).send({ message: "Please enter your phonenumber" });
     }
     //check password length
     else if (!checkNumberOfChars.test(password)) {
@@ -63,6 +67,8 @@ exports.createUser = async (req, res) => {
         .input("username", sql.VarChar, username)
         .input("email", sql.VarChar, email)
         .input("password", sql.VarChar, hashedPassword)
+        .input("phonenumber", sql.VarChar, phonenumber)
+        
         .execute("createUser", (error, result) => {
           if (error) {
             res.status(500).send(error.message);
@@ -90,18 +96,22 @@ exports.login = async (req, res) => {
       .request()
       .input("email", sql.VarChar, email)
       .execute("checkEmail");
-
     const user = results.recordset[0];
+
+    console.log(password);
+    console.log(user.password);
     if (!user || user === undefined) {
       return res.status(401).send({ message: "User not found" });
     } else {
-      bcrypt.compare(password, user.password, (err, results) => {
+      bcrypt.compare(password, user.password, (err, result) => {
         if (err) {
-          res.status(500).send("Error");
+          return res.status(500).send("Error");
         }
-        if (!results) {
+        console.log(result);
+        if (!result) {
           return res.status(401).json({ message: "Wrong Password" });
         }
+
         return res.status(200).json({
           user: lodash.pick(user, ["username", "email"]),
           message: `${user.username} logged in successfully`,
@@ -110,7 +120,7 @@ exports.login = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(401).send(error.message);
+    return res.status(401).send(error.message);
   }
 };
 
