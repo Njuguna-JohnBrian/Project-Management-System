@@ -41,8 +41,8 @@ async function connectDB() {
 }
 connectDB();
 
-app.use("/users", userRoutes);
-app.use("/", authRoutes);
+app.use("/admin", userRoutes);
+app.use("/user", authRoutes);
 
 //Set port app will listen to for requests
 const PORT = process.env.PORT || 8000;

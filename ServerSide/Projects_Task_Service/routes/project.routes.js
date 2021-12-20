@@ -13,7 +13,7 @@ const {
 } = require("../controllers/projects.controllers");
 
 // Project Routes
-router.route("/projects").get(getAllProjects);
+router.route("/all").get(getAllProjects);
 router.route("/project/:id").get(getOneProject);
 router.route("/project/new").post(createProject);
 router.route("/project/assign").put(assignProject);
