@@ -2,11 +2,14 @@ import axios from "axios";
 import authHeader from "./auth-header";
 
 class UserService {
+  getPublicContent() {
+    return axios.get("/projects/all");
+  }
   getUserBoard() {
-    return axios.get("", { headers: authHeader });
+    return axios.get("/user", { headers: authHeader });
   }
   getAdminBoard() {
-    return axios.get("", { headers: authHeader });
+    return axios.get("/admin", { headers: authHeader });
   }
 }
 
