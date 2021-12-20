@@ -2,6 +2,7 @@ import axios from "axios";
 
 //User Authentication service
 class AuthService {
+  // login user and store details in localstorage
   login(username, password) {
     return axios
       .post("/user/login", {
@@ -16,10 +17,12 @@ class AuthService {
       });
   }
 
+  // Remove current user from localstorage
   logout() {
     localStorage.removeItem("user");
   }
 
+  //create new user
   register(username, email, password) {
     return axios.post("/user/signup", {
       username,
@@ -28,6 +31,7 @@ class AuthService {
     });
   }
 
+  // get current user from localstorage
   getCurrentUser() {
     return JSON.parse(localStorage.getItem("user"));
   }
