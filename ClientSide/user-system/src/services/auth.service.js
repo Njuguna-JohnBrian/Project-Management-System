@@ -35,10 +35,11 @@ class AuthService {
   }
 
   //create new user
-  register(username, email, password) {
+  register(username, email, phonenumber, password) {
     return axios.post("/user/signup", {
       username,
       email,
+      phonenumber,
       password,
     });
   }
