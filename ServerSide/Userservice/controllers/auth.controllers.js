@@ -55,7 +55,7 @@ exports.createUser = async (req, res) => {
     } else if (user && user.is_deleted === 0) {
       res
         .status(401)
-        .send({ message: "Email is in use, please enter a different email" });
+        .json({ message: "Email is in use, please enter a different email" });
     } else {
       //hash password
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -68,14 +68,18 @@ exports.createUser = async (req, res) => {
         .input("email", sql.VarChar, email)
         .input("password", sql.VarChar, hashedPassword)
         .input("phonenumber", sql.VarChar, phonenumber)
-        
+
         .execute("createUser", (error, result) => {
           if (error) {
-            res.status(500).send(error.message);
+            res
+              .status(500)
+              .json({
+                message: "Check details and retry.",
+              });
           } else {
             return res.status(201).json({
               user: { email, username },
-              message: `${username} added successfully`,
+              message: `${username} You Have Registered Successfully.Proceed to Login.`,
               token: generateToken(email, username),
             });
           }
