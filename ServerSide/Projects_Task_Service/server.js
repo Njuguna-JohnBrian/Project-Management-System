@@ -14,7 +14,7 @@ let corsOPtions = {
 };
 
 //MOUNT INSTALLED MIDDLEWARES
-app.use(cors(corsOPtions));
+app.use(cors());
 
 //parse json content-type requests
 app.use(bodyParser.json());

@@ -71,11 +71,9 @@ exports.createUser = async (req, res) => {
 
         .execute("createUser", (error, result) => {
           if (error) {
-            res
-              .status(500)
-              .json({
-                message: "Check details and retry.",
-              });
+            res.status(500).json({
+              message: "Check details and retry.",
+            });
           } else {
             return res.status(201).json({
               user: { email, username },
@@ -100,10 +98,9 @@ exports.login = async (req, res) => {
       .request()
       .input("email", sql.VarChar, email)
       .execute("checkEmail");
+
     const user = results.recordset[0];
 
-    console.log(password);
-    console.log(user.password);
     if (!user || user === undefined) {
       return res.status(401).send({ message: "User not found" });
     } else {
@@ -111,7 +108,6 @@ exports.login = async (req, res) => {
         if (err) {
           return res.status(500).send("Error");
         }
-        console.log(result);
         if (!result) {
           return res.status(401).json({ message: "Wrong Password" });
         }

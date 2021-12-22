@@ -84,7 +84,6 @@ exports.getOneTask = async (req, res) => {
 };
 
 // Update Task /update/:id
-const sqlConfig = require("../../ServerSide/Projects_Task_Service/config/database");
 
 exports.updateTask = async (req, res) => {
   try {
