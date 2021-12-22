@@ -2,31 +2,17 @@ import axios from "axios";
 
 //User Authentication service
 class AuthService {
-  // login user and store details in localstorage
-  // this.config = {
-  //   headers: {
-  //     "Content-type": "application/json",
-  //   },
-  // };
-
-  login(email, password) {
-    return axios
-      .post(
-        "/user/login",
-        {
-          email,
-          password,
-        },
-        {
-          "Content-type": "application/json",
-        }
-      )
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-        return response.data;
+   async login(email, password) {
+    
+     let response = await axios
+      .post("/user/login", {
+        email,
+        password,
       });
+      if (response.status === 200){
+        localStorage.setItem('user', JSON.stringify(response.data));
+      }
+      return response;
   }
 
   // Remove current user from localstorage
@@ -46,7 +32,10 @@ class AuthService {
 
   // get current user from localstorage
   getCurrentUser() {
+
+    console.log(localStorage);
     return JSON.parse(localStorage.getItem("user"));
+
   }
 }
 

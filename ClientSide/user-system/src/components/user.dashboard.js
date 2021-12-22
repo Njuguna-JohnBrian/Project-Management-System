@@ -1,9 +1,19 @@
 import React, { Component } from "react";
+import AuthService from "../services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./user.dashboard.css";
 
 export default class UserDash extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: AuthService.getCurrentUser(),
+    };
+  }
   render() {
+    const { currentUser } = this.state;
+
     const checkboxLogic = (
       <span>
         <div className="form-check form-check-inline">
@@ -12,7 +22,7 @@ export default class UserDash extends Component {
             type="radio"
             name="inlineRadioOptions"
             id="1"
-            value="In Progress" 
+            value="In Progress"
             checked
           />
           <label className="form-check-label" htmlFor="inprogress">
@@ -49,6 +59,11 @@ export default class UserDash extends Component {
     return (
       <section id="tabs" className="project-tab">
         <div className="container">
+          <header className="jumpotron">
+            <h3>
+              {/* <strong>Welcome {currentUser.username}</strong> */}
+            </h3>
+          </header>
           <div className="row">
             <div className="col-md-12">
               <nav>
