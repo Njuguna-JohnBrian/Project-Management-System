@@ -89,7 +89,6 @@ export default class Login extends Component {
             src="https://tinyurl.com/2p94e656"
             alt="profile-img"
             className="profile-img-card"
-            style={{ height: "50px", width: "50px", borderRadius: "50%" }}
           />
 
           <Form
