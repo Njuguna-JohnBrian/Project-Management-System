@@ -110,7 +110,7 @@ export default class Login extends Component {
             </div>
 
             <div className="form group">
-              <label htmlFor="passowrd">Password</label>
+              <label htmlFor="password">Password</label>
               <Input
                 type="password"
                 className="form-control"
