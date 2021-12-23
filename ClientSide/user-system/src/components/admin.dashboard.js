@@ -33,7 +33,7 @@ export default class AdminDash extends React.Component {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   <NavDropdown title="Users" id="offcanvasNavbarDropdown">
-                    <NavDropdown.Item href="#action3">
+                    <NavDropdown.Item href="/admindash/getallusers">
                       Get All Users
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action4">
@@ -50,7 +50,7 @@ export default class AdminDash extends React.Component {
                     <NavDropdown.Item href="/admindash/createproject">
                       Create Project
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
+                    <NavDropdown.Item href="/admindash/allprojects">
                       Get All Projects
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action4">

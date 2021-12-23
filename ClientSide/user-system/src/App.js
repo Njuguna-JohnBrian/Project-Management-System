@@ -11,6 +11,8 @@ import UserDash from "./components/user.dashboard";
 import AdminDash from "./components/admin.dashboard";
 import Projects from "./components/projects.component";
 import AuthService from "./services/auth.service";
+import GetAllUsers from "./components/users.component";
+import GetAllProjects from "./components/getallprojects";
 
 class App extends Component {
   constructor(props) {
@@ -122,6 +124,16 @@ class App extends Component {
             <Route exact path="/admindash" component={AdminDash} />
             <Route exact path="/userdash" component={UserDash} />
             <Route exact path="/admindash/createproject" component={Projects} />
+            <Route
+              exact
+              path="/admindash/allprojects"
+              component={GetAllProjects}
+            />
+            <Route
+              exact
+              path="/admindash/getallusers"
+              component={GetAllUsers}
+            />
           </Switch>
         </div>
       </div>

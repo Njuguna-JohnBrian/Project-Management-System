@@ -18,7 +18,7 @@ export default class ProjectsCard extends Component {
 
   render() {
     let listItems = this.state.items.map((item) => {
-      console.log(item);
+      
 
       return item;
     });

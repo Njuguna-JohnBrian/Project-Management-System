@@ -14,6 +14,11 @@ class UserService {
       project_name,
       project_desc,
     });
+
+    
+    }
+    getAllUsers(){
+      return axios.get("http://localhost:8000/admin/all")
   }
 }
 
