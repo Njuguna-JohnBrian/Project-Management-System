@@ -59,14 +59,15 @@ export default class Login extends Component {
       AuthService.login(this.state.email, this.state.password).then(
         () => {
           let currentUser = AuthService.getCurrentUser();
-          console.log(currentUser)
           if (currentUser.user.is_admin === true) {
             this.props.history.push("/admindash");
           } else {
             this.props.history.push("/userdash");
           }
 
-          window.location.reload();
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
         },
         (error) => {
           const resMessage =
