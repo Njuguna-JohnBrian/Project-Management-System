@@ -59,12 +59,12 @@ exports.createProject = async (req, res) => {
       .input("project_desc", sql.VarChar, project_desc)
       .execute("createProject", (error, results) => {
         if (error) {
-          res.status(500).send({ message: "Error" });
+          return res.status(500).send({ message: "Error Please Retry" });
         }
-        res.status(201).send({ message: "Project Created Successfully" });
+       return res.status(201).send({ message: "Project Created Successfully, Proceed To Assign" });
       });
   } catch (error) {
-    res.status(402).send(error.message);
+   return res.status(402).send(error.message);
   }
 };
 

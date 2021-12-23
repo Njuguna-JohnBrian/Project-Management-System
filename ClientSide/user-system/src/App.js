@@ -9,6 +9,7 @@ import Register from "./components/register.component";
 import Home from "./components/home.component";
 import UserDash from "./components/user.dashboard";
 import AdminDash from "./components/admin.dashboard";
+import Projects from "./components/projects.component";
 import AuthService from "./services/auth.service";
 
 class App extends Component {
@@ -120,6 +121,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/admindash" component={AdminDash} />
             <Route exact path="/userdash" component={UserDash} />
+            <Route exact path="/admindash/createproject" component={Projects} />
           </Switch>
         </div>
       </div>
