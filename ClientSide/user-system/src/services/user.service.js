@@ -14,11 +14,21 @@ class UserService {
       project_name,
       project_desc,
     });
+  }
 
-    
-    }
-    getAllUsers(){
-      return axios.get("http://localhost:8000/admin/all")
+  getTasks(project_id){
+    return axios.get("http://localhost:9000/tasks/tasks")
+  }
+
+  createTask(task_name, task_desc, project_id) {
+    return axios.post("http://localhost:9000/tasks/tasks/new", {
+      task_name,
+      task_desc,
+      project_id,
+    });
+  }
+  getAllUsers() {
+    return axios.get("http://localhost:8000/admin/all");
   }
 }
 

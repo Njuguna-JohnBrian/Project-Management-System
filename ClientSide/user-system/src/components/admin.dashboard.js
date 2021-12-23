@@ -70,10 +70,10 @@ export default class AdminDash extends React.Component {
                     </NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown title="Tasks" id="offcanvasNavbarDropdown">
-                    <NavDropdown.Item href="#action3">
+                    <NavDropdown.Item href="/admindash/gettasks">
                       Get All Tasks
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
+                    <NavDropdown.Item href="/admindash/createtask">
                       Create Task
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#action4">

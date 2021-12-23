@@ -16,57 +16,75 @@ const required = (value) => {
   }
 };
 
-// Check Project Name
-const vprojectname = (value) => {
-  if (value.length < 5 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        The Project Name must be between 5 and 20 characters.
-      </div>
-    );
-  }
-};
-
-// Check Project Description
-const vprojectdesc = (value) => {
+// Check Taskname
+const vtaskname = (value) => {
   if (value.length < 5) {
     return (
       <div className="alert alert-danger" role="alert">
-        The Project Description must have 5 characters.
+        The Task Name must have more than 5 characters.
       </div>
     );
   }
 };
 
-export default class Projects extends React.Component {
+// Check Task Description
+const vtaskdesc = (value) => {
+  if (value.length < 5) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The Task Description must have 5 characters.
+      </div>
+    );
+  }
+};
+
+const vproject_id = (value) => {
+  if (value < 0) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        Project Id Must be a positive Number.
+      </div>
+    );
+  }
+};
+
+export default class CreateTask extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleCreateProject = this.handleCreateProject.bind(this);
-    this.onChangeProjectname = this.onChangeProjectname.bind(this);
-    this.onChangeProjectdesc = this.onChangeProjectdesc.bind(this);
+    this.handleCreateTask = this.handleCreateTask.bind(this);
+    this.onChangeTaskname = this.onChangeTaskname.bind(this);
+    this.onChangeTaskdesc = this.onChangeTaskdesc.bind(this);
+    this.onChangeProjectid = this.onChangeProjectid.bind(this);
 
     this.state = {
-      project_name: "",
-      project_desc: "",
+      task_name: "",
+      task_desc: "",
+      project_id: "",
       successful: false,
       message: "",
     };
   }
 
-  onChangeProjectname(e) {
+  onChangeTaskname(e) {
     this.setState({
-      project_name: e.target.value,
+      task_name: e.target.value,
     });
   }
 
-  onChangeProjectdesc(e) {
+  onChangeTaskdesc(e) {
     this.setState({
-      project_desc: e.target.value,
+      task_desc: e.target.value,
     });
   }
 
-  handleCreateProject(e) {
+  onChangeProjectid(e) {
+    this.setState({
+      project_id: e.target.value,
+    });
+  }
+
+  handleCreateTask(e) {
     e.preventDefault();
 
     this.setState({
@@ -77,7 +95,11 @@ export default class Projects extends React.Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       userService
-        .createProject(this.state.project_name, this.state.project_desc)
+        .createTask(
+          this.state.task_name,
+          this.state.task_desc,
+          this.state.project_id
+        )
         .then(
           (response) => {
             this.setState({
@@ -105,7 +127,7 @@ export default class Projects extends React.Component {
     return (
       <div className="col-md-12">
         <Form
-          onSubmit={this.handleCreateProject}
+          onSubmit={this.handleCreateTask}
           ref={(c) => {
             this.form = c;
           }}
@@ -113,31 +135,42 @@ export default class Projects extends React.Component {
           {!this.state.successful && (
             <div>
               <div className="form-group">
-                <label htmlFor="projectname">Project Name</label>
+                <label htmlFor="taskname">Task Name</label>
                 <Input
                   type="text"
-                  name="projectname"
+                  name="taskname"
                   className="form-control"
-                  value={this.state.project_name}
-                  onChange={this.onChangeProjectname}
-                  validations={[required, vprojectname]}
+                  value={this.state.task_name}
+                  onChange={this.onChangeTaskname}
+                  validations={[required, vtaskname]}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="projectdesc">Project Description</label>
+                <label htmlFor="taskdesc">Task Description</label>
                 <Input
                   type="text"
-                  name="projectdesc"
+                  name="taskdesc"
                   className="form-control"
-                  value={this.state.project_desc}
-                  onChange={this.onChangeProjectdesc}
-                  validations={[required, vprojectdesc]}
+                  value={this.state.task_desc}
+                  onChange={this.onChangeTaskdesc}
+                  validations={[required, vtaskdesc]}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="projectid">Project Id</label>
+                <Input
+                  type="number"
+                  name="projectid"
+                  className="form-control"
+                  value={this.state.project_id}
+                  onChange={this.onChangeProjectid}
+                  validations={[required, vproject_id]}
                 />
               </div>
 
               <div className="form-group">
                 <button className="btn btn-primary btn-block">
-                  Create Project
+                  Create Task
                 </button>
               </div>
             </div>

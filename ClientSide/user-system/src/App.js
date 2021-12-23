@@ -13,6 +13,8 @@ import Projects from "./components/projects.component";
 import AuthService from "./services/auth.service";
 import GetAllUsers from "./components/users.component";
 import GetAllProjects from "./components/getallprojects";
+import CreateTask from "./components/createTask";
+import GetTasks from "./components/getTasks";
 
 class App extends Component {
   constructor(props) {
@@ -124,6 +126,8 @@ class App extends Component {
             <Route exact path="/admindash" component={AdminDash} />
             <Route exact path="/userdash" component={UserDash} />
             <Route exact path="/admindash/createproject" component={Projects} />
+            <Route exact path="/admindash/createtask" component={CreateTask} />
+            <Route exact path="/admindash/gettasks" component={GetTasks} />
             <Route
               exact
               path="/admindash/allprojects"

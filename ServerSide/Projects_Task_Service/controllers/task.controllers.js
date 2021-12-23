@@ -33,7 +33,7 @@ exports.createTask = async (req, res) => {
   try {
     let task_name = req.body.task_name;
     let task_desc = req.body.task_desc;
-    let project_id = parseInt(req.params.id);
+    let project_id = req.body.project_id;
     let pool = await sql.connect(sqlConfig);
 
     if (!project_id || !task_desc || !task_name) {
