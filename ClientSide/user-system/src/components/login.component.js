@@ -27,9 +27,9 @@ export default class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      email: "",
       loading: false,
       message: "",
-      email: "",
     };
   }
 
@@ -58,7 +58,14 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.email, this.state.password).then(
         () => {
-          this.props.history.push("/userdash");
+          let currentUser = AuthService.getCurrentUser();
+          console.log(currentUser)
+          if (currentUser.user.is_admin === true) {
+            this.props.history.push("/admindash");
+          } else {
+            this.props.history.push("/userdash");
+          }
+
           window.location.reload();
         },
         (error) => {
@@ -99,12 +106,12 @@ export default class Login extends Component {
             }}
           >
             <div className="form-group">
-              <label htmlFor="username">Email</label>
+              <label htmlFor="email">Email</label>
               <Input
                 type="text"
                 className="form-control"
                 name="email"
-                value={this.state.username}
+                value={this.state.email}
                 onChange={this.onChangeEmail}
                 validations={[required]}
               />

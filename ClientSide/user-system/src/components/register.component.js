@@ -127,6 +127,12 @@ export default class Register extends Component {
             message: response.data.message,
             successful: true,
           });
+          setTimeout(() => {
+            this.props.history.push("/login");
+          }, 4000);
+          setTimeout(() => {
+            window.location.reload();
+          }, 5000);
         },
         (error) => {
           const resMessage =

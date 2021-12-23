@@ -23,7 +23,7 @@ export default class UserDash extends Component {
             name="inlineRadioOptions"
             id="1"
             value="In Progress"
-            checked
+            defaultChecked
           />
           <label className="form-check-label" htmlFor="inprogress">
             InProgress
@@ -61,7 +61,7 @@ export default class UserDash extends Component {
         <div className="container">
           <header className="jumpotron">
             <h3>
-              {/* <strong>Welcome {currentUser.username}</strong> */}
+              <strong>Welcome {currentUser.user.username}</strong>
             </h3>
           </header>
           <div className="row">

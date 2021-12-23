@@ -77,7 +77,7 @@ exports.createUser = async (req, res) => {
           } else {
             return res.status(201).json({
               user: { email, username },
-              message: `${username} You Have Registered Successfully.Proceed to Login.`,
+              message: `${username} You Have Registered Successfully.Redirecting You To The Login Page.`,
               token: generateToken(email, username),
             });
           }
@@ -113,7 +113,7 @@ exports.login = async (req, res) => {
         }
 
         return res.status(200).json({
-          user: lodash.pick(user, ["username", "email"]),
+          user: lodash.pick(user, ["username", "email", "is_admin"]),
           message: `${user.username} logged in successfully`,
           token: generateToken(user.email, user.username),
         });

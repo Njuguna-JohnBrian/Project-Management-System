@@ -17,7 +17,7 @@ export default class Home extends Component {
     UserService.getPublicContent().then(
       (response) => {
         this.setState({
-          constent: response.data,
+          content: response.data,
         });
       },
       (error) => {
@@ -44,7 +44,7 @@ export default class Home extends Component {
               We help you maximize profits by building scalable projects.
             </p>
             <p>
-              <a href="#" class="btn btn-primary btn-lg" role="button">
+              <a href="/login" class="btn btn-primary btn-lg" role="button">
                 Login To Get Started
               </a>
             </p>
