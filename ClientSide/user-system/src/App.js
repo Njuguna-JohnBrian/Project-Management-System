@@ -54,7 +54,7 @@ class App extends Component {
     const { currentUser, showUserDashboard, showAdminDashboard } = this.state;
     return (
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark ">
+        <nav className="navbar navbar-expand navbar-light bg-light ">
           <Link to={"/"} className="navbar-brand">
             USER SYSTEM
           </Link>
