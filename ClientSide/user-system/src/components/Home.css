@@ -2,3 +2,9 @@
     background-color: #c60063;
     border-color: #c60063;
 }
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: #c60063;
+    color: #c60063;
+}
