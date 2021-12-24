@@ -36,7 +36,7 @@ export default class GetAllUsers extends React.Component {
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.phonenumber}</td>
-              <td>{user.is_deleted === 0 ? "True" : "False"}</td>
+              <td>{user.is_deleted == 0 ? "True" : "False"}</td>
               <td>
                 <Icon.Trash color="red" size={20} onClick={console.log("Unataka")}/>
               </td>

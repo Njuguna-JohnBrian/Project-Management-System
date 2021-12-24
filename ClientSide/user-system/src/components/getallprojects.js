@@ -36,8 +36,9 @@ export default class GetAllProjects extends React.Component {
               <td>{project.id}</td>
               <td>{project.project_name}</td>
               <td>{project.project_desc}</td>
+              <td></td>
               <td>
-                <Icon.Trash color="red" size={20}/>
+                <Icon.Trash color="red" size={20} />
               </td>
             </tr>
           ))}
