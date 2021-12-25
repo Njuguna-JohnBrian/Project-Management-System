@@ -16,9 +16,9 @@ exports.getAllTasks = async (req, res) => {
           res.status(500).send(err);
         }
         if (results.recordset.length == 0)
-          res
-            .status(406)
-            .send(`Project ID ${project_id} has no tasks assigned`);
+          res.status(406).json({
+            message: `Project ID ${project_id} has no tasks assigned`,
+          });
         else {
           res.status(201).send(results.recordset);
         }
@@ -123,34 +123,28 @@ exports.updateTask = async (req, res) => {
 // Delete Task /delete/:id
 exports.deleteTask = async (req, res) => {
   try {
-    let pool = await sql.connect(sqlConfig);
     let id = parseInt(req.params.id);
+    let pool = await sql.connect(sqlConfig);
+
+    // pool
+    //   .request()
+    //   .input("id", sql.Int, id)
+    //   .execute("getOneTask", (err, results) => {
+    //     console.log(results);
+    //     if (err) {
+    //       res.status(500).send({ message: "Internal Server Error" });
+    //     }
 
     pool
       .request()
       .input("id", sql.Int, id)
-      .execute("getOneTask", (err, results) => {
+      .execute("deleteTask", (err, results) => {
         if (err) {
-          res.status(500).send({ message: "Internal Server Error" });
+          return res.status(500).send({
+            message: "Opps!Task Not Deleted",
+          });
         }
-        let task = results.recordset[0];
-        if (task) {
-          pool
-            .request()
-            .input("id", sql.Int, id)
-            .execute("deleteTask", (err, results) => {
-              if (err) {
-                return res
-                  .status(500)
-                  .send({ message: "Internal Server Error" });
-              }
-              return res
-                .status(201)
-                .send({ message: "Task deleted successfully" });
-            });
-        } else {
-          return res.send({ message: "Task Not Found" });
-        }
+        return res.status(201).send({ message: "Taks Deleted Sucessfully" });
       });
   } catch (error) {
     res.status(500).send(error.message);
