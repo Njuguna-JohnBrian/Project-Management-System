@@ -6,16 +6,16 @@ import "./App.css";
 // import AuthService from "./services/auth.service";
 import Login from "../src/components/User/login.component";
 import Register from "../src/components/User/register.component";
-import Home from "./components/Home/home.component"
+import Home from "./components/Home/home.component";
 import UserDash from "./components/User/user.dashboard";
 import AdminDash from "./components/Admin/Dashboard/admin.dashboard";
-import Projects from "./components/Admin/Projects/projects.component"
-import AuthService from "./services/auth.service"
+
+import AuthService from "./services/auth.service";
 import GetAllUsers from "./components/Admin/Users/users.component";
-import GetAllProjects from "../src/components/Admin/Projects/getallprojects"
-import CreateTask from "./components/Admin/Tasks/createTask"
+import GetAllProjects from "../src/components/Admin/Projects/getallprojects";
+
 import GetTasks from "./components/Admin/Tasks/getTasks";
-import CreateAssign from "../src/components/Admin/Projects/create_assign";
+import CreateAssign from "../src/components/Admin/Dashboard/create_assign";
 
 class App extends Component {
   constructor(props) {

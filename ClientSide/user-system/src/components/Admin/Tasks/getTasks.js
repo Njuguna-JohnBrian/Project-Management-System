@@ -9,29 +9,21 @@ export default class GetTasks extends React.Component {
     id: "",
     idItems: [],
     taskItems: [],
-    taskId: "",
-
     message: "",
   };
 
   handleChange = (e) => {
     this.setState({ id: e.target.value });
   };
-  handleTaskChange = (e) => {
-    this.setState({ taskId: e.target.value });
-  };
 
-  handleDelete = (e) => {
-    e.preventDefault();
+  componentDidMount() {
+    axios.get("http://localhost:9000/projects/all").then((res) => {
+      const idItems = res.data;
 
-    axios
-      .delete(`http://localhost:9000/tasks/delete/${this.state.taskId}`)
-      .then((res) => {
-        const taskId = res.data;
-        this.setState({ taskId });
-        return res.data;
-      });
-  };
+      this.setState({ idItems });
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -40,6 +32,7 @@ export default class GetTasks extends React.Component {
         console.log(res.data);
         const taskItems = res.data;
         this.setState({ taskItems });
+        console.log(taskItems);
         return res.data;
       },
       (error) => {
@@ -57,19 +50,18 @@ export default class GetTasks extends React.Component {
     );
   };
 
-  componentDidMount() {
-    axios.get("http://localhost:9000/projects/all").then((res) => {
-      const idItems = res.data;
+  handleDelete = (taskId, e) => {
+    axios.delete(`http://localhost:9000/tasks/delete/${taskId}`).then((res) => {
+      const taskItems = this.state.taskItems.filter(
+        (item) => item.id !== taskId
+      );
+      console.log(taskItems);
+      this.setState({ taskItems });
+    });
+  };
 
-      this.setState({ idItems });
-    });
-  }
   render() {
-    let getAllTasks = this.state.taskItems.map((taskItem) => {
-      return taskItem;
-    });
     let getProjectId = this.state.idItems.map((idItem) => {
-      console.log(idItem);
       return idItem;
     });
     return (
@@ -84,12 +76,17 @@ export default class GetTasks extends React.Component {
             <label htmlFor="projectid">Select Project Id</label>
             <div className="select-container">
               <select
-                value={this.state.id}
+                value={this.state.id ? this.state.id : ""}
                 onChange={this.handleChange}
                 className="form-control"
               >
+                <option value="" disabled></option>
                 {getProjectId.map((projId) => (
-                  <option value={projId.id} style={{ fontWeight: "bolder" }}>
+                  <option
+                    key={projId.id}
+                    value={projId.id}
+                    style={{ fontWeight: "bolder" }}
+                  >
                     {projId.id}
                   </option>
                 ))}
@@ -119,7 +116,7 @@ export default class GetTasks extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {getAllTasks.map((task) => (
+            {this.state.taskItems.map((task) => (
               <tr key={task.id}>
                 <td>{task.project_id}</td>
                 <td>{task.id}</td>
@@ -127,19 +124,12 @@ export default class GetTasks extends React.Component {
                 <td>{task.task_desc}</td>
                 <td>{task.is_deleted === true ? "Inactive" : "Active"}</td>
                 <td>
-                  {
-                    <form onSubmit={this.handleDelete}>
-                      <input
-                        type="number"
-                        name="id"
-                        onChange={this.handleTaskChange}
-                      />
-
-                      <button type="submit">
-                        <Icon.Trash color="red" size={20} />
-                      </button>
-                    </form>
-                  }
+                  <button
+                    className="btn btn-danger"
+                    onClick={(e) => this.handleDelete(task.id, e)}
+                  >
+                    Delete Task
+                  </button>
                 </td>
               </tr>
             ))}

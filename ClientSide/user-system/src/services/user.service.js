@@ -16,8 +16,8 @@ class UserService {
     });
   }
 
-  getTasks(project_id){
-    return axios.get("http://localhost:9000/tasks/tasks")
+  getTasks(project_id) {
+    return axios.get("http://localhost:9000/tasks/tasks");
   }
 
   createTask(task_name, task_desc, project_id) {
@@ -25,6 +25,13 @@ class UserService {
       task_name,
       task_desc,
       project_id,
+    });
+  }
+
+  assignProject(project_id, user_id) {
+    return axios.put("http://localhost:9000/projects/project/assign", {
+      project_id,
+      user_id,
     });
   }
   getAllUsers() {

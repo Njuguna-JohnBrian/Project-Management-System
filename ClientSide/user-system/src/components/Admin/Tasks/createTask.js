@@ -172,10 +172,11 @@ export default class CreateTask extends React.Component {
                 <label htmlFor="projectid">Select Project Id</label>
                 <div className="select-container">
                   <select
-                    value={this.state.project_id}
+                    value={this.state.project_id ? this.state.project_id : ""}
                     onChange={this.onChangeProjectid}
                     className="form-control"
                   >
+                    <option value="" disabled></option>
                     {getProjectId.map((projId) => (
                       <option
                         value={projId.id}

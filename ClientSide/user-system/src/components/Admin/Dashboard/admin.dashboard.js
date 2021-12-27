@@ -128,7 +128,7 @@ export default class AdminDash extends React.Component {
             {projectsTasks.map((projtask) => (
               <tr>
                 {projtask.user_id == null ? (
-                  <a href="/assign" className="form-group">
+                  <a href="/admindash/create" className="form-group">
                     <button className="btn btn-primary btn-block">
                       Assign
                     </button>
