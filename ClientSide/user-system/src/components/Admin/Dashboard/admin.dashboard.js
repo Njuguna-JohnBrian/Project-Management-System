@@ -116,7 +116,7 @@ export default class AdminDash extends React.Component {
           <thead>
             <tr>
               <th>User Id</th>
-              <th>Project Id</th>
+              
               <th>Project Name</th>
               <th>Project Description</th>
               <th>Task Name</th>
@@ -137,7 +137,7 @@ export default class AdminDash extends React.Component {
                   <td>{projtask.user_id}</td>
                 )}
                 {/* <td>{projtask.user_id}</td> */}
-                <td>{projtask.project_id}</td>
+                
                 <td>{projtask.project_name}</td>
                 <td>{projtask.project_desc}</td>
                 <td>{projtask.task_name}</td>
