@@ -3,7 +3,7 @@ import React from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import userService from "../services/user.service";
+import userService from "../../../services/user.service";
 
 // Global input validator
 const required = (value) => {
@@ -84,6 +84,9 @@ export default class Projects extends React.Component {
               message: response.data.message,
               successful: true,
             });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           },
           (error) => {
             const resMessage =

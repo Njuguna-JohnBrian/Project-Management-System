@@ -1,11 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
-
-import UserService from "../services/user.service";
+// import UserService from "../../../src/services/user.service";
 
 import "./Home.css";
 
-import { CardGroup, Card } from "react-bootstrap";
+
 export default class ProjectsCard extends Component {
   state = {
     items: [],

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../services/auth.service";
-import axios from "axios";
+import AuthService from "../../../src/services/auth.service";
+
 // Global form validator
 const required = (value) => {
   if (!value) {

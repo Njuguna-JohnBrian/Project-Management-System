@@ -4,17 +4,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 // import AuthService from "./services/auth.service";
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Home from "./components/home.component";
-import UserDash from "./components/user.dashboard";
-import AdminDash from "./components/admin.dashboard";
-import Projects from "./components/projects.component";
-import AuthService from "./services/auth.service";
-import GetAllUsers from "./components/users.component";
-import GetAllProjects from "./components/getallprojects";
-import CreateTask from "./components/createTask";
-import GetTasks from "./components/getTasks";
+import Login from "../src/components/User/login.component";
+import Register from "../src/components/User/register.component";
+import Home from "./components/Home/home.component"
+import UserDash from "./components/User/user.dashboard";
+import AdminDash from "./components/Admin/Dashboard/admin.dashboard";
+import Projects from "./components/Admin/Projects/projects.component"
+import AuthService from "./services/auth.service"
+import GetAllUsers from "./components/Admin/Users/users.component";
+import GetAllProjects from "../src/components/Admin/Projects/getallprojects"
+import CreateTask from "./components/Admin/Tasks/createTask"
+import GetTasks from "./components/Admin/Tasks/getTasks";
+import CreateAssign from "../src/components/Admin/Projects/create_assign";
 
 class App extends Component {
   constructor(props) {
@@ -125,8 +126,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/admindash" component={AdminDash} />
             <Route exact path="/userdash" component={UserDash} />
-            <Route exact path="/admindash/createproject" component={Projects} />
-            <Route exact path="/admindash/createtask" component={CreateTask} />
+            <Route exact path="/admindash/create" component={CreateAssign} />
+
             <Route exact path="/admindash/gettasks" component={GetTasks} />
             <Route
               exact

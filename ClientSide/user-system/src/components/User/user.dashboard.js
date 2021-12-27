@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthService from "../services/auth.service";
+import AuthService from "../../../src/services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./user.dashboard.css";
 

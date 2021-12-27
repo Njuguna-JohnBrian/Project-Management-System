@@ -1,16 +1,13 @@
 import React from "react";
 import axios from "axios";
 import * as Icon from "react-bootstrap-icons";
-import Select from "react-validation/build/select";
+
 import {
   Navbar,
   Container,
   Offcanvas,
   Nav,
   NavDropdown,
-  Form,
-  FormControl,
-  Button,
   Table,
 } from "react-bootstrap";
 // import ProjectsCard from "./home.project.card";
@@ -19,8 +16,6 @@ import {
 export default class AdminDash extends React.Component {
   state = {
     projectTasks: [],
-    userId: "",
-    users: [],
   };
   handleChange = (e) => {
     this.setState({ userId: e.target.value });
@@ -33,11 +28,6 @@ export default class AdminDash extends React.Component {
         projectTasks,
       });
     });
-
-    axios.get("/admin/all").then((res) => {
-      const users = res.data;
-      this.setState({ users });
-    });
   }
   render() {
     let projectsTasks = this.state.projectTasks.map((projectTask) => {
@@ -45,9 +35,6 @@ export default class AdminDash extends React.Component {
       return projectTask;
     });
 
-    let allUsers = this.state.users.map((user) => {
-      return user;
-    });
     return (
       <div>
         <div>
@@ -82,8 +69,8 @@ export default class AdminDash extends React.Component {
                       </NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Projects" id="offcanvasNavbarDropdown">
-                      <NavDropdown.Item href="/admindash/createproject">
-                        Create Project
+                      <NavDropdown.Item href="/admindash/create">
+                        Create Project,Task and Assign
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/admindash/allprojects">
                         Get All Projects
@@ -108,9 +95,7 @@ export default class AdminDash extends React.Component {
                       <NavDropdown.Item href="/admindash/gettasks">
                         Get All Tasks
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="/admindash/createtask">
-                        Create Task
-                      </NavDropdown.Item>
+
                       <NavDropdown.Item href="#action4">
                         Get One Task
                       </NavDropdown.Item>
@@ -143,13 +128,11 @@ export default class AdminDash extends React.Component {
             {projectsTasks.map((projtask) => (
               <tr>
                 {projtask.user_id == null ? (
-                  <td>
-                    {allUsers.map((user) => (
-                      <select>
-                        <p>{user.id}</p>
-                      </select>
-                    ))}
-                  </td>
+                  <a href="/assign" className="form-group">
+                    <button className="btn btn-primary btn-block">
+                      Assign
+                    </button>
+                  </a>
                 ) : (
                   <td>{projtask.user_id}</td>
                 )}

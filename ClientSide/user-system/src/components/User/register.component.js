@@ -3,10 +3,10 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
-import PhoneInput from "react-phone-number-input";
+
 import "react-phone-number-input/style.css";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../../src/services/auth.service";
 
 // Global input validator
 const required = (value) => {

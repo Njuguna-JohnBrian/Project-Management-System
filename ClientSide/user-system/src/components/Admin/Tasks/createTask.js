@@ -1,9 +1,9 @@
 import React from "react";
-
+import axios from "axios";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import userService from "../services/user.service";
+import userService from "../../../services/user.service";
 
 // Global input validator
 const required = (value) => {
@@ -61,6 +61,7 @@ export default class CreateTask extends React.Component {
       task_name: "",
       task_desc: "",
       project_id: "",
+      items: [],
       successful: false,
       message: "",
     };
@@ -123,7 +124,18 @@ export default class CreateTask extends React.Component {
         );
     }
   }
+  componentDidMount() {
+    axios.get("http://localhost:9000/projects/all").then((res) => {
+      const items = res.data;
+
+      this.setState({ items });
+    });
+  }
   render() {
+    let getProjectId = this.state.items.map((item) => {
+      console.log(item.id);
+      return item;
+    });
     return (
       <div className="col-md-12">
         <Form
@@ -157,18 +169,26 @@ export default class CreateTask extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="projectid">Project Id</label>
-                <Input
-                  type="number"
-                  name="projectid"
-                  className="form-control"
-                  value={this.state.project_id}
-                  onChange={this.onChangeProjectid}
-                  validations={[required, vproject_id]}
-                />
+                <label htmlFor="projectid">Select Project Id</label>
+                <div className="select-container">
+                  <select
+                    value={this.state.project_id}
+                    onChange={this.onChangeProjectid}
+                    className="form-control"
+                  >
+                    {getProjectId.map((projId) => (
+                      <option
+                        value={projId.id}
+                        style={{ fontWeight: "bolder" }}
+                      >
+                        {projId.id}{" "}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
-              <div className="form-group">
+              <div className="form-group" style={{ paddingTop: "20px" }}>
                 <button className="btn btn-primary btn-block">
                   Create Task
                 </button>

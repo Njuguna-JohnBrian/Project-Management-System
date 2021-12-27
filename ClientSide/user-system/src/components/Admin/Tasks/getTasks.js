@@ -7,8 +7,10 @@ import * as Icon from "react-bootstrap-icons";
 export default class GetTasks extends React.Component {
   state = {
     id: "",
+    idItems: [],
     taskItems: [],
     taskId: "",
+
     message: "",
   };
 
@@ -54,9 +56,21 @@ export default class GetTasks extends React.Component {
       }
     );
   };
+
+  componentDidMount() {
+    axios.get("http://localhost:9000/projects/all").then((res) => {
+      const idItems = res.data;
+
+      this.setState({ idItems });
+    });
+  }
   render() {
     let getAllTasks = this.state.taskItems.map((taskItem) => {
       return taskItem;
+    });
+    let getProjectId = this.state.idItems.map((idItem) => {
+      console.log(idItem);
+      return idItem;
     });
     return (
       <div>
@@ -67,15 +81,20 @@ export default class GetTasks extends React.Component {
           }}
         >
           <div className="form-group">
-            <label>
-              Project ID:
-              <input
-                type="number"
-                name="id"
-                onChange={this.handleChange}
+            <label htmlFor="projectid">Select Project Id</label>
+            <div className="select-container">
+              <select
                 value={this.state.id}
-              />
-            </label>
+                onChange={this.handleChange}
+                className="form-control"
+              >
+                {getProjectId.map((projId) => (
+                  <option value={projId.id} style={{ fontWeight: "bolder" }}>
+                    {projId.id}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button type="submit" className="btn btn-primary btn-block">
               Get Tasks
             </button>

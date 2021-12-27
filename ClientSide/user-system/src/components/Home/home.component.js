@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
-import UserService from "../services/user.service";
-
 import "./Home.css";
-import ProjectsCard from "./home.project.card";
+import ProjectsCard from "../Home/home.project.card";
 
 export default class Home extends Component {
-
-
   render() {
     return (
       <div className="container">
