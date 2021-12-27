@@ -38,7 +38,7 @@ export default class AdminDash extends React.Component {
     return (
       <div>
         <div>
-          <Navbar bg="light" expand={false}>
+          <Navbar bg="light" expand={false} sticky="top" fixed="bottom">
             <Container fluid>
               <Navbar.Brand href="#"></Navbar.Brand>
               <Navbar.Toggle aria-controls="offcanvasNavbar" />

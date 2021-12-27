@@ -145,7 +145,10 @@ export default class AssignProject extends React.Component {
                 </div>
               </div>
 
-              <div className="form-group" style={{ paddingTop: "20px", paddingBottom:"20px" }}>
+              <div
+                className="form-group"
+                style={{ paddingTop: "20px", paddingBottom: "20px" }}
+              >
                 <button className="btn btn-primary btn-block">
                   Assign Project
                 </button>

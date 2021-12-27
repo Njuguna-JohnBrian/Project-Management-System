@@ -56,29 +56,23 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand navbar-light bg-light responsive-md">
-          {/* <Link to={"/"} className="navbar-brand">
-            USER SYSTEM
-          </Link> */}
-   
-              <Link to={"/home"} className="navbar-brand">
-                Home
-              </Link>
-          
+          <Link to={"/home"} className="navbar-brand">
+            Home
+          </Link>
 
           <div className="navbar-nav ml-auto">
-           
             {/* Add Admin and User DashBoards */}
             {showUserDashboard && (
               <li className="nav-item">
                 <Link to={"/userdash"} className="nav-link">
-                  User
+                  Rights: User
                 </Link>
               </li>
             )}
             {showAdminDashboard && (
               <li className="nav-item">
                 <Link to={"/admindash"} className="nav-link">
-                  Admin
+                  Rights: Admin
                 </Link>
               </li>
             )}
