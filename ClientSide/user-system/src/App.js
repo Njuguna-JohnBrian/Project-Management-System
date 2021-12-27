@@ -59,13 +59,14 @@ class App extends Component {
           {/* <Link to={"/"} className="navbar-brand">
             USER SYSTEM
           </Link> */}
-
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link" style={{float:"left"}}>
+   
+              <Link to={"/home"} className="navbar-brand">
                 Home
               </Link>
-            </li>
+          
+
+          <div className="navbar-nav ml-auto">
+           
             {/* Add Admin and User DashBoards */}
             {showUserDashboard && (
               <li className="nav-item">
