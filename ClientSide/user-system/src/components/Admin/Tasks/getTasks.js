@@ -87,7 +87,7 @@ export default class GetTasks extends React.Component {
                     value={projId.id}
                     style={{ fontWeight: "bolder" }}
                   >
-                    {projId.id}
+                    {projId.project_name}:{projId.id}
                   </option>
                 ))}
               </select>

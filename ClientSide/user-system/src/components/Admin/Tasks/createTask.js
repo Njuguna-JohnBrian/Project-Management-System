@@ -107,6 +107,9 @@ export default class CreateTask extends React.Component {
               message: response.data.message,
               successful: true,
             });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           },
           (error) => {
             const resMessage =
@@ -182,7 +185,7 @@ export default class CreateTask extends React.Component {
                         value={projId.id}
                         style={{ fontWeight: "bolder" }}
                       >
-                        {projId.id}{" "}
+                        {projId.project_name}:{projId.id}{" "}
                       </option>
                     ))}
                   </select>

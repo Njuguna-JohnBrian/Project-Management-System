@@ -116,7 +116,7 @@ export default class AdminDash extends React.Component {
           <thead>
             <tr>
               <th>User Id</th>
-              
+
               <th>Project Name</th>
               <th>Project Description</th>
               <th>Task Name</th>
@@ -137,11 +137,20 @@ export default class AdminDash extends React.Component {
                   <td>{projtask.user_id}</td>
                 )}
                 {/* <td>{projtask.user_id}</td> */}
-                
+
                 <td>{projtask.project_name}</td>
                 <td>{projtask.project_desc}</td>
-                <td>{projtask.task_name}</td>
+                {projtask.task_name == null ? (
+                  <a href="/admindash/create" className="form-group">
+                    <button className="btn btn-primary btn-block">
+                      Create Task Name
+                    </button>
+                  </a>
+                ) : (
+                  <td>{projtask.task_name}</td>
+                )}
                 <td>{projtask.task_desc}</td>
+
                 {/* use this to do updates */}
                 <a href="/update">
                   <td>

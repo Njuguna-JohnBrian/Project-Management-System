@@ -51,6 +51,9 @@ export default class AssignProject extends React.Component {
             message: response.data.message,
             successful: true,
           });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         },
         (error) => {
           const resMessage =
@@ -112,7 +115,7 @@ export default class AssignProject extends React.Component {
                         key={projItem.id}
                         value={projItem.id}
                       >
-                        {projItem.id}
+                        {projItem.project_name}:{projItem.id}
                       </option>
                     ))}
                   </select>
@@ -128,21 +131,21 @@ export default class AssignProject extends React.Component {
                     onChange={this.onChangeUserId}
                     className="form-control"
                   >
-                      <option value="" disabled></option>
+                    <option value="" disabled></option>
                     {this.state.userItems.map((userItem) => (
                       <option
                         style={{ fontWeight: "bolder" }}
                         key={userItem.id}
                         value={userItem.id}
                       >
-                        {userItem.id}
+                        {userItem.username}:{userItem.id}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
 
-              <div className="form-group" style={{ paddingTop: "20px" }}>
+              <div className="form-group" style={{ paddingTop: "20px", paddingBottom:"20px" }}>
                 <button className="btn btn-primary btn-block">
                   Create Task
                 </button>
