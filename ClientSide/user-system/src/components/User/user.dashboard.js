@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import AuthService from "../../../src/services/auth.service";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { MDBDataTable } from 'mdbreact';
 import "./user.dashboard.css";
+
+
+import axios from "axios";
 
 export default class UserDash extends Component {
   constructor(props) {
@@ -9,10 +13,81 @@ export default class UserDash extends Component {
 
     this.state = {
       currentUser: AuthService.getCurrentUser(),
+      userProjects: [],
+      project_name: "",
+      project_desc: "",
+      task_name: "",
+      task_desc: "",
     };
   }
+
+  componentDidMount() {
+    axios
+      .get(
+        `http://localhost:9000/projects/userproject/${this.state.currentUser.user.id}`
+      )
+      .then((res) => {
+        const userProjects = res.data;
+        console.log(userProjects);
+
+        const project_name = res.data.project_name;
+        this.setState({ project_name });
+
+        const project_desc = res.data.project_desc;
+        this.setState({ project_desc });
+
+        const task_name = res.data.task_name;
+        this.setState({ task_name });
+
+        const task_desc = res.data.task_desc;
+        this.setState({ task_desc });
+
+        this.setState({ userProjects });
+        console.log(this.state.currentUser.user.id);
+      });
+    console.log(this.state.currentUser.user.id);
+  }
+
   render() {
     const { currentUser } = this.state;
+
+    const userDetails = {
+      columns: [
+        {
+          label: "Project Name",
+          field: "projectname",
+          sort: "asc",
+          width: 200,
+        },
+        {
+          label: "Project Description",
+          field: "projectdesc",
+          sort: "asc",
+          width: 270,
+        },
+        {
+          label: "Task Name",
+          field: "taskname",
+          sort: "asc",
+          width: 200,
+        },
+        {
+          label: "Task Desc",
+          field: "taskdesc",
+          sort: "asc",
+          width: 270,
+        },
+      ],
+
+      rows: [
+        {
+          projectname: this.state.project_name,
+          projectdesc: this.state.project_desc,
+          taskname: this.state.task_desc,
+          taskdesc: this.state.task_desc,
+        },
+      ],
+    };
 
     return (
       <section id="tabs" className="project-tab">
@@ -22,69 +97,13 @@ export default class UserDash extends Component {
               <strong>Welcome {currentUser.user.username}</strong>
             </h3>
           </header>
-          <div className="row">
-            <div className="col-md-12">
-              <nav>
-                <div
-                  className="nav nav-tabs nav-fill"
-                  id="nav-tab"
-                  role="tablist"
-                >
-                  <a
-                    className="nav-item nav-link active"
-                    id="nav-home-tab"
-                    data-toogle="tab"
-                    role="tab"
-                    aria-controls="nav-project"
-                    aria-selected="true"
-                  >
-                    React Project
-                  </a>
-                </div>
-              </nav>
-              <div className="tab-content" id="nav-tabContent">
-                <div
-                  className="tab-pane fade show active table-responsive-lg"
-                  id="nav-home"
-                  role="tabpanel"
-                  aria-aria-labelledby="nav-home-tab"
-                >
-                  <table className="table" cellSpacing="0">
-                    <thead>
-                      <tr>
-                        <th>Project Name</th>
-                        <th>Project Description</th>
-                        <th>Task Name</th>
-                        <th>Task Description</th>
-                        <th>Mark Complete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <a>1</a>
-                        </td>
-                        <td>
-                          <a>useEffect</a>
-                        </td>
-                        <td>
-                          <a>Create a React Component Using UseEffect</a>
-                        </td>
-                        <td>
-                          <a>Create a React Component</a>
-                        </td>
-
-                        <td>
-                          <button>Mark Complete</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+        <MDBDataTable 
+        striped
+        bordered
+        small
+        data={userDetails}/>
+       
       </section>
     );
   }

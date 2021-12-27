@@ -113,7 +113,7 @@ exports.login = async (req, res) => {
         }
 
         return res.status(200).json({
-          user: lodash.pick(user, ["username", "email", "is_admin"]),
+          user: lodash.pick(user, ["username", "email", "is_admin", "id"]),
           message: `${user.username} logged in successfully`,
           token: generateToken(user.email, user.username),
         });
