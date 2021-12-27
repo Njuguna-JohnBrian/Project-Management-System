@@ -10,6 +10,7 @@ const {
   getProjectsTasks,
   updateProject,
   deleteProject,
+  getAssignedProjects,
 } = require("../controllers/projects.controllers");
 
 // Project Routes
@@ -20,5 +21,6 @@ router.route("/project/assign").put(assignProject);
 router.route("/projtasks").get(getProjectsTasks);
 router.route("/update/:id").patch(updateProject);
 router.route("/delete/:id").delete(deleteProject);
+router.route("/userproject/:id").get(getAssignedProjects);
 
 module.exports = router;

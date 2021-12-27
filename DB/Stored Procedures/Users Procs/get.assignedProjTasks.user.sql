@@ -1,6 +1,9 @@
-CREATE OR ALTER PROCEDURE getProjectsTasks
-AS
+CREATE OR ALTER PROCEDURE getAssignedProjTasks(
+    @user_id INT
+)
+AS 
 BEGIN
+
     SELECT
         user_id,
         project_name,
@@ -11,10 +14,11 @@ BEGIN
         Projects p
         FULL JOIN TaskS t
         ON t.project_id = p.id
+
+    WHERE 
+        @user_id = user_id
     ORDER BY
-        user_id ASC;
+        project_name ASC;
 END;
 
-EXECUTE getProjectsTasks
-
-DROP PROCEDURE getProjectsTasks
+EXECUTE getAssignedProjTasks "8";

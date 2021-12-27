@@ -14,48 +14,6 @@ export default class UserDash extends Component {
   render() {
     const { currentUser } = this.state;
 
-    const checkboxLogic = (
-      <span>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="1"
-            value="In Progress"
-            defaultChecked
-          />
-          <label className="form-check-label" htmlFor="inprogress">
-            InProgress
-          </label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="2"
-            value="complete"
-          />
-          <label className="form-check-label" htmlFor="complete">
-            Complete
-          </label>
-        </div>
-        <div className="form-check form-check-inline">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="inlineRadioOptions"
-            id="3"
-            value="reviewed"
-          />
-          <label className="form-check-label" htmlFor="reviewed">
-            Reviewed
-          </label>
-        </div>
-      </span>
-    );
-
     return (
       <section id="tabs" className="project-tab">
         <div className="container">
@@ -94,11 +52,11 @@ export default class UserDash extends Component {
                   <table className="table" cellSpacing="0">
                     <thead>
                       <tr>
-                        <th>Task ID</th>
+                        <th>Project Name</th>
+                        <th>Project Description</th>
                         <th>Task Name</th>
                         <th>Task Description</th>
-                        <th>Due Date</th>
-                        <th>Task Progress</th>
+                        <th>Mark Complete</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -112,11 +70,13 @@ export default class UserDash extends Component {
                         <td>
                           <a>Create a React Component Using UseEffect</a>
                         </td>
+                        <td>
+                          <a>Create a React Component</a>
+                        </td>
 
                         <td>
-                          <a>{Date()}</a>
+                          <button>Mark Complete</button>
                         </td>
-                        <td>{checkboxLogic}</td>
                       </tr>
                     </tbody>
                   </table>

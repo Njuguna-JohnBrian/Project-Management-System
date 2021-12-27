@@ -40,6 +40,30 @@ exports.getOneProject = async (req, res) => {
   }
 };
 
+// Get assigned projecthttp://localhost:9000/projects/userproject/1013
+
+exports.getAssignedProjects = async (req, res) => {
+  try {
+    let user_id = parseInt(req.params.id);
+    let pool = await sql.connect(sqlConfig);
+
+    pool
+      .request()
+      .input("user_id", sql.Int, user_id)
+      .execute("getAssignedProjTasks", (err, results) => {
+        if (err) {
+          res.status(500).send({ message: "Internal Server Error" });
+        }
+        if (results.recordset.length == 0)
+          res.status(201).send({ message: `User ${user_id} Not Found` });
+        else {
+          res.status(201).send(results.recordset[0]);
+        }
+      });
+  } catch (error) {
+    res.status(401).send(error.message);
+  }
+};
 // Create Project
 
 exports.createProject = async (req, res) => {
@@ -61,10 +85,12 @@ exports.createProject = async (req, res) => {
         if (error) {
           return res.status(500).send({ message: "Error Please Retry" });
         }
-       return res.status(201).send({ message: "Project Created Successfully, Proceed To Assign" });
+        return res
+          .status(201)
+          .send({ message: "Project Created Successfully, Proceed To Assign" });
       });
   } catch (error) {
-   return res.status(402).send(error.message);
+    return res.status(402).send(error.message);
   }
 };
 
