@@ -9,9 +9,7 @@ export default class GetAllUsers extends React.Component {
     userId: "",
   };
 
-  handleChange = (e) => {
-    this.setState({ userId: e.target.value });
-  };
+ 
   handleDelete = (e) => {
     e.preventDefault();
 
@@ -52,7 +50,7 @@ export default class GetAllUsers extends React.Component {
               <td>{user.is_deleted == 0 ? "True" : "False"}</td>
               <td>{user.id}</td>
               <td>
-               s {
+                {
                   <form onSubmit={this.handleDelete}>
                     <input
                       type="number"
