@@ -152,7 +152,7 @@ export default class AdminDash extends React.Component {
                 <td>{projtask.task_desc}</td>
 
                 {/* use this to do updates */}
-                <a href="/update">
+                <a href="/admindash/update">
                   <td>
                     <Icon.PencilSquare style={{ color: "red" }} />
                   </td>

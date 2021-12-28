@@ -154,14 +154,14 @@ exports.getProjectsTasks = async (req, res) => {
 //Update Project /update/:id
 exports.updateProject = async (req, res) => {
   try {
-    let id = parseInt(req.params.id);
+    let id = req.body.id;
     let pool = await sql.connect(sqlConfig);
 
     // Check If Project Exists
     let project = (
       await pool.request().input("id", sql.Int, id).execute("getOneProject")
     ).recordset[0];
-
+    // Update if exists
     if (project) {
       let updated_project_name = req.body.project_name || project.project_name;
       let updated_project_desc = req.body.project_desc || project.project_desc;

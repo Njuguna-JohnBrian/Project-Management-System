@@ -16,6 +16,7 @@ import GetAllProjects from "../src/components/Admin/Projects/getallprojects";
 
 import GetTasks from "./components/Admin/Tasks/getTasks";
 import CreateAssign from "../src/components/Admin/Dashboard/create_assign";
+import Updates from "./components/Admin/Updates/updates";
 
 class App extends Component {
   constructor(props) {
@@ -134,6 +135,7 @@ class App extends Component {
               path="/admindash/getallusers"
               component={GetAllUsers}
             />
+            <Route exact path="/admindash/update" component={Updates} />
           </Switch>
         </div>
       </div>
