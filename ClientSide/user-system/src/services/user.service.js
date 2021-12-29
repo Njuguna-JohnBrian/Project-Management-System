@@ -16,6 +16,17 @@ class UserService {
     });
   }
 
+  updateProject(project_id, project_name, project_desc) {
+    return axios.patch(
+      `http://localhost:9000/projects/update/${this.state.project_id}`,
+      {
+        project_id,
+        project_name,
+        project_desc,
+      }
+    );
+  }
+
   getTasks(project_id) {
     return axios.get("http://localhost:9000/tasks/tasks");
   }

@@ -68,7 +68,7 @@ export default class Login extends Component {
 
           setTimeout(() => {
             window.location.reload();
-          }, 5000);
+          }, 1000);
         },
         (error) => {
           const resMessage =

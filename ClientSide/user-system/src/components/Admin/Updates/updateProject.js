@@ -16,8 +16,8 @@ const required = (value) => {
   }
 };
 
-// Check Taskname
-const vtaskname = (value) => {
+// Check Projectname
+const vprojectname = (value) => {
   if (value.length < 5) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -28,7 +28,7 @@ const vtaskname = (value) => {
 };
 
 // Check Task Description
-const vtaskdesc = (value) => {
+const vprojectdesc = (value) => {
   if (value.length < 5) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -95,14 +95,11 @@ export default class UpdateProject extends React.Component {
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
-      axios.post()
-        .createTask(
-          this.state.task_name,
-          this.state.task_desc,
-          this.state.project_id
-        )
+      axios
+        .patch(`http://localhost:9000/projects/update/${this.state.project_id}`)
         .then(
           (response) => {
+            console.log(response.data);
             this.setState({
               message: response.data.message,
               successful: true,
@@ -175,20 +172,20 @@ export default class UpdateProject extends React.Component {
                   type="text"
                   name="projectname"
                   className="form-control"
-                  value={this.state.task_name}
+                  value={this.state.project_name}
                   onChange={this.onChangeProjectname}
-                  validations={[required, vtaskname]}
+                  validations={[required, vprojectname]}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="taskdesc">Project Description</label>
+                <label htmlFor="projectdesc">Project Description</label>
                 <Input
                   type="text"
                   name="projectdesc"
                   className="form-control"
                   value={this.state.task_desc}
                   onChange={this.onChangeProjectdesc}
-                  validations={[required, vtaskdesc]}
+                  validations={[required, vprojectdesc]}
                 />
               </div>
 
