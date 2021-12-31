@@ -16,7 +16,7 @@ module.exports = function smsServer() {
     const port = 7000;
 
     app.listen(port, () => {
-        console.log(`App running on port: ${port}`);
+        console.log(`🌏 App running on port: ${port}`);
 
         // TODO: call sendSMS to send message after server starts
 

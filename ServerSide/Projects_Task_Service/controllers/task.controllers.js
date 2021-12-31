@@ -2,6 +2,22 @@ const sql = require("mssql");
 require("dotenv").config();
 const sqlConfig = require("../config/database");
 
+// Get all tasks /tasks/all
+exports.getTasks = async (req, res) => {
+  try {
+    let pool = await sql.connect(sqlConfig);
+    let results = await pool.request().execute("getTasks");
+
+    if (results.recordset.length === 0) {
+      return res.status(406).send({ message: "No Entries Found" });
+    }
+
+    return res.status(201).send(results.recordset);
+  } catch (error) {
+    return res.status(401).send(error.message);
+  }
+};
+
 // Get All Tasks In A Project /tasks/:id
 exports.getAllTasks = async (req, res) => {
   try {
@@ -87,36 +103,36 @@ exports.getOneTask = async (req, res) => {
 
 exports.updateTask = async (req, res) => {
   try {
-    let pool = await sql.connect(sqlConfig);
     let id = parseInt(req.params.id);
 
-    pool
-      .request()
-      .input("id", sql.Int, id)
-      .execute("getSingleTask", (err, results) => {
-        if (err) {
-          res.status(500).send({ message: "Internal Server Error" });
-        }
+    let pool = await sql.connect(sqlConfig);
 
-        let task = results.recordset[0];
+    let task = (
+      await pool.request().input("task_id", sql.Int, id).execute("getOneTask")
+    ).recordset[0];
 
-        let updated_task_name = req.body.task_name || task.task_name;
-        let updated_task_desc = req.body.task_desc || task.task_desc;
+    if (task) {
+      // let task = results.recordset[0];
 
-        pool
-          .request()
-          .input("id", sql.Int, id)
-          .input("task_desc", sql.VarChar, updated_task_desc)
-          .input("task_name", sql.VarChar, updated_task_name)
-          .execute("updateTask", (err, results) => {
-            if (err) {
-              res.status(500).send({ message: "Internal Server Error" });
-            }
-            res.status(201).send({ message: "Task updated successfully" });
-          });
-      });
+      let updated_task_name = req.body.task_name || task.task_name;
+      let updated_task_desc = req.body.task_desc || task.task_desc;
+
+      pool
+        .request()
+        .input("id", sql.Int, id)
+        .input("task_desc", sql.VarChar, updated_task_desc)
+        .input("task_name", sql.VarChar, updated_task_name)
+        .execute("updateTask", (err, results) => {
+          if (err) {
+            res.status(500).send({ message: "Internal Server Error" });
+          }
+          return res.status(201).send({ message: "Task Updated Successfully" });
+        });
+    } else {
+      return res.status(500).send({ message: "Task Not Found" });
+    }
   } catch (error) {
-    res.status(500).send(err.message);
+    res.status(500).send(error.message);
   }
 };
 

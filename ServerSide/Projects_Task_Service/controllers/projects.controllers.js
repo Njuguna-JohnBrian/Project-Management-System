@@ -155,6 +155,7 @@ exports.getProjectsTasks = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     let id = parseInt(req.params.id)
+
     let pool = await sql.connect(sqlConfig);
 
     // Check If Project Exists
@@ -165,6 +166,9 @@ exports.updateProject = async (req, res) => {
     if (project) {
       let updated_project_name = req.body.project_name || project.project_name;
       let updated_project_desc = req.body.project_desc || project.project_desc;
+
+      console.log(updated_project_name)
+      console.log(updated_project_desc)
 
       pool
         .request()

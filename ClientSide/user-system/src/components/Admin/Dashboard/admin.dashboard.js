@@ -31,7 +31,6 @@ export default class AdminDash extends React.Component {
   }
   render() {
     let projectsTasks = this.state.projectTasks.map((projectTask) => {
-      console.log(projectTask);
       return projectTask;
     });
 

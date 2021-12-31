@@ -33,7 +33,6 @@ class App extends Component {
 
   componentDidMount() {
     const user = AuthService.getCurrentUser();
-    console.log(user);
     // if (user.user.is_admin === true) {
     //   "/admindash";
     // } else {

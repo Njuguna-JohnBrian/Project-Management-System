@@ -50,5 +50,5 @@ app.use("/tasks/", tasks);
 const PORT = process.env.PORT || 9000;
 
 app.listen(PORT, () => {
-  console.log(`Project Service Running on port: ${PORT}`);
+  console.log(`🌏 Project Service Running on port: ${PORT}`);
 });
