@@ -11,18 +11,15 @@ const africastalking = AfricasTalking({
 module.exports = async function sendSMS() {
   // TODO: Send message
   try {
-    const  {data}  = await axios.get(
-      "https://localhost:8000/admin/sendsms"
+    const { data } = await axios.get(
+      "http://localhost:8000/admin/sendsms"
     );
-    // console.log(data);
-
     if (data.length) {
-      
       data.map(async (user) => {
-        // console.log(user);
+        console.log(user);
 
         const apiMessage = {
-          to: `+${user.phonenumber}`,
+          to: `${user.phonenumber}`,
           from: "2485",
           message: `Greetings ${user.username}`,
         };

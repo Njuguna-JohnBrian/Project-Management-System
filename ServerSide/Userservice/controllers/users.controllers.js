@@ -97,7 +97,7 @@ exports.sendSMS = async (req, res) => {
   try {
     let pool = await sql.connect(sqlConfig);
     let data = await pool.request().execute("sendSMS");
-    console.log(data);
+    console.log("hello",data);
 
     return res.status(201).json(data.recordset);
   } catch (error) {
