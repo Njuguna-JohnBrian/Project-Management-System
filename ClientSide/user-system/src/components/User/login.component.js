@@ -110,9 +110,9 @@ export default class Login extends Component {
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <Input
-                type="text"
-                className="form-control"
+                type="email"
                 name="email"
+                className="form-control"
                 value={this.state.email}
                 onChange={this.onChangeEmail}
                 validations={[required]}

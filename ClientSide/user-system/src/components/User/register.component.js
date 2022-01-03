@@ -183,7 +183,7 @@ export default class Register extends Component {
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
                   <Input
-                    type="text"
+                    type="email"
                     name="email"
                     className="form-control"
                     value={this.state.email}
@@ -201,6 +201,7 @@ export default class Register extends Component {
                     value={this.state.phonenumber}
                     onChange={this.onChangePhoneNumber}
                     validations={[required, vphonenumber]}
+                    placeholder="Start with 254..."
                   />
                 </div>
 

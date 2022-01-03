@@ -16,3 +16,6 @@ EXECUTE sendSMS
 
 UPDATE Users
 SET sms_sent = 0 WHERE is_deleted = 0
+
+UPDATE Users
+SET phonenumber = +254707683279  WHERE is_deleted = 0
