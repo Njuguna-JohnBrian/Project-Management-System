@@ -91,3 +91,16 @@ exports.deleteUser = async (req, res) => {
     res.status(401).send(error.message);
   }
 };
+
+// Send SMS To New User
+exports.sendSMS = async (req, res) => {
+  try {
+    let pool = await sql.connect(sqlConfig);
+    let results = await pool.request().execute("sendSMS");
+    console.log(results);
+
+    return res.status(201).send(results.recordset);
+  } catch (error) {
+    return res.status(401).send(error.message);
+  }
+};
