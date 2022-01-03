@@ -96,10 +96,10 @@ exports.deleteUser = async (req, res) => {
 exports.sendSMS = async (req, res) => {
   try {
     let pool = await sql.connect(sqlConfig);
-    let results = await pool.request().execute("sendSMS");
-    console.log(results);
+    let data = await pool.request().execute("sendSMS");
+    console.log(data);
 
-    return res.status(201).send(results.recordset);
+    return res.status(201).json(data.recordset);
   } catch (error) {
     return res.status(401).send(error.message);
   }

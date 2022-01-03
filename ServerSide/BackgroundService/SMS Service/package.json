@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "africastalking": "^0.5.4",
+    "axios": "^0.24.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "mssql": "^7.3.0"
