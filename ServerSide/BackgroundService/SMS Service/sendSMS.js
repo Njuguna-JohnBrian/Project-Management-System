@@ -16,14 +16,15 @@ module.exports = async function sendSMS() {
     );
     if (data.length) {
       data.map(async (user) => {
-        console.log(user);
 
         const apiMessage = {
           to: `+${user.phonenumber}`,
           from: "2485",
-          message: `Greetings ${user.username} \n
+          message: `Greetings ${user.username}
                     Welcome To Projects System,
-                    Our Admin will assign you a project soon.\n
+                    Our Admin will assign you a project soon.
+                    We will be updating you soon via email:
+                    ${user.email}\n
                     Be on the lookout`,
         };
         const result = await africastalking.SMS.send(apiMessage);
