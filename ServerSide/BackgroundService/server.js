@@ -3,7 +3,7 @@ const cron = require("node-cron");
 const sql = require("mssql");
 const sqlConfig = require("./config/database");
 const sendSMS = require("./sendSMS");
-
+const sendEmail = require("./sendEmail");
 const app = express();
 
 app.use(express.json());
@@ -28,6 +28,7 @@ connectDB();
 cron.schedule("* * * * * *", () => {
   sendSMS();
 });
+sendEmail();
 
 const port = 7000;
 
