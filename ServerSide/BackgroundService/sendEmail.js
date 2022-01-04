@@ -35,7 +35,7 @@ module.exports = async function sendEmail() {
                               <br />
                               <br />
                   
-                              <p>Regards:<strong>John Brian<strong/> <i>CEO,JB Projects<i/><p/>
+                              <p>Regards:<strong>John Brian<strong/><br /> <i>CEO @JB Projects<i/><p/>
                   
                               <br />
                   
