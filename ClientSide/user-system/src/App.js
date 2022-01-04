@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import * as Icon from "react-bootstrap-icons";
+import { Button, Table, Modal, ModalFooter, ModalBody } from "react-bootstrap";
 
 // import AuthService from "./services/auth.service";
 import Login from "../src/components/User/login.component";
@@ -28,9 +30,16 @@ class App extends Component {
       showUserDashboard: false,
       showAdminDashboard: false,
       currentUser: undefined,
+      showProfile: false,
     };
   }
 
+  handleOpenProfile = (e) => {
+    this.setState({ showProfile: true });
+  };
+  handleCloseProfile = (e) => {
+    this.setState({ showProfile: false });
+  };
   componentDidMount() {
     const user = AuthService.getCurrentUser();
     // if (user.user.is_admin === true) {
@@ -65,50 +74,103 @@ class App extends Component {
             {showUserDashboard && (
               <li className="nav-item">
                 <Link to={"/userdash"} className="nav-link">
-                  Rights: User
+                  DashBoard
                 </Link>
               </li>
             )}
             {showAdminDashboard && (
               <li className="nav-item">
                 <Link to={"/admindash"} className="nav-link">
-                  Rights: Admin
+                  DashBoard
                 </Link>
               </li>
             )}
-
-            {/* {currentUser && (
-              <li className="nav-item" className="navbar-nav ml-auto">
-                <Link to={"/userdash"} className="na-link">User2</Link>
-              </li>
-            )} */}
           </div>
 
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/userdash"} className="nav-link">
-                  {currentUser.user.username}'s Dashboard
-                </Link>
+                <>
+                  <button
+                    variant="primary"
+                    style={{ border: "none", fontSize: "0.8em" }}
+                    onClick={this.handleOpenProfile}
+                  >
+                    <Icon.PersonFill size={"30px"} />
+                  </button>
+                  <Modal
+                    show={this.state.showProfile}
+                    onHide={this.handleCloseProfile}
+                    backdrop="static"
+                    keyboard={false}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Profile</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <b>Logged In As</b> : {currentUser.user.username} <br />
+                      <b>Email</b> : {currentUser.user.email} <br />
+                      <b>Account ID</b> :{currentUser.user.id} <br />
+                      <b>Account Rights </b>:{" "}
+                      {currentUser.user.is_admin ? "Admin" : "User"}
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        className="btn btn-success"
+                        onClick={this.handleCloseProfile}
+                      >
+                        Close
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+                </>
               </li>
 
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
+                <button
+                  className="btn btn-sm btn-danger py-0"
+                  style={{ fontSize: "0.8em" }}
+                >
+                  <a
+                    href="/login"
+                    className="nav-link"
+                    onClick={this.logOut}
+                    style={{ fontSize: "0.8em" }}
+                  >
+                    <Icon.BoxArrowLeft />
+                  </a>
+                </button>
               </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
+                <button
+                  className="btn btn-sm btn-primary py-0"
+                  style={{ fontSize: "0.8em" }}
+                >
+                  <Link
+                    to={"/login"}
+                    className="nav-link"
+                    style={{ fontSize: "0.8em" }}
+                  >
+                    Login
+                  </Link>
+                </button>
               </li>
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  SignUp
-                </Link>
+                <button
+                  className="btn btn-sm btn-primary py-0"
+                  style={{ fontSize: "0.8em" }}
+                >
+                  <Link
+                    to={"/register"}
+                    className="nav-link"
+                    style={{ fontSize: "0.8em" }}
+                  >
+                    SignUp
+                  </Link>
+                </button>
               </li>
             </div>
           )}
