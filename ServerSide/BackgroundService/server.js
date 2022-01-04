@@ -27,8 +27,8 @@ connectDB();
 
 cron.schedule("* * * * * *", () => {
   sendSMS();
+  sendEmail();
 });
-sendEmail();
 
 const port = 7000;
 
