@@ -69,7 +69,7 @@ npm install
 cd Serverside/BackgroundService
 npm install
 
-cd client
+cd ClientSide/user-system
 npm install
 ```
 
