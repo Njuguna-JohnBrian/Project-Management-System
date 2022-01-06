@@ -3,7 +3,7 @@ A project management system created using:
 - Node.js and Express for the backend using the Microservice Architecture.
 - MS SQL server for the database.
 - React.js for the frontend.
-- 
+
 ## Third Party Intergrations
 ### 1.Gmail
   - Send Email Upon Successful User Registration
