@@ -1,4 +1,7 @@
 # Project-Management-System
+<img alt="project-management-system" width="100%" src="./project.png" />
+
+
 A project management system created using:
 - Node.js and Express for the backend using the Microservice Architecture.
 - MS SQL server for the database.
